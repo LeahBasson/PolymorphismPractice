@@ -1,0 +1,124 @@
+package za.ac.cput;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+public class EmployeeManagement extends JFrame implements ItemListener, ActionListener {
+
+    ArrayList<Employee> employees= new ArrayList<Employee>();
+    
+    // combo box
+    private JComboBox<String> cboRole;
+
+    // labels
+    private JLabel lblRole;
+    private JLabel lblName;
+    private JLabel lblSalary;
+
+    // textfields
+    private JTextField txtName;
+    private JTextField txtSalary;
+
+    // buttons
+    private JButton btnAdd;
+    private JButton btnShow;
+
+    // table
+    DefaultTableModel tableModel;
+    JTable table;
+
+    // panels
+    private JPanel pnlForm;
+    private JPanel pnlButtons;
+
+    // constructor
+    public EmployeeManagement() {
+        super("Polymorphism in Swing");
+
+        setLayout(new GridLayout(3, 1));
+
+        // panels
+        pnlForm = new JPanel();
+        pnlButtons = new JPanel();
+
+        pnlForm.setLayout(new GridLayout(3, 2));
+        pnlButtons.setLayout(new FlowLayout());
+
+        // labels
+        lblRole = new JLabel("Select Role");
+        lblName = new JLabel("Enter Name");
+        lblSalary = new JLabel("Enter Salary");
+
+        // combo box
+        cboRole = new JComboBox();
+
+        // text fields
+        txtName = new JTextField(10);
+        txtSalary = new JTextField(10);
+
+        // buttons
+        btnAdd = new JButton("Add");
+        btnShow = new JButton("Show All");
+
+        // table
+        tableModel = new DefaultTableModel();
+        table = new JTable(tableModel);
+
+        pnlForm.add(lblRole);
+
+        cboRole.addItem("none selected");
+        cboRole.addItem("Manager");
+        cboRole.addItem("Developer");
+        cboRole.addItem("Intern");
+
+        cboRole.addItemListener(this);
+
+        pnlForm.add(cboRole);
+        pnlForm.add(lblName);
+        pnlForm.add(txtName);
+        pnlForm.add(lblSalary);
+        pnlForm.add(txtSalary);
+
+        add(pnlForm);
+
+        pnlButtons.add(btnAdd);
+        pnlButtons.add(btnShow);
+
+        add(pnlButtons);
+
+        setGui();
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            String query = cboRole.getSelectedItem().toString();
+            if (!query.equals("none selected")) {
+                JOptionPane.showMessageDialog(null, query);
+            }
+        }
+    }
+
+    public void setGui() {
+        tableModel.addColumn("Role");
+        tableModel.addColumn("Name");
+        tableModel.addColumn("Salary");
+        add(new JScrollPane(table));
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnAdd) {
+            
+
+        }
+        
+        if (e.getSource() == btnShow) {
+            
+        }
+    }
+
+}// end of class
