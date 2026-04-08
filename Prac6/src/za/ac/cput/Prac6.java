@@ -10,6 +10,7 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
 
     // combo box
     private JComboBox<String> cboRole;
+    ArrayList<Employee> employees = new ArrayList<Employee>();
 
     // labels
     private JLabel lblRole;
@@ -112,7 +113,6 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Employee> employees = new ArrayList<Employee>();
         if (e.getSource() == btnAdd) {
 
             Object role = cboRole.getSelectedItem();
@@ -139,12 +139,10 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
         }
 
         if (e.getSource() == btnShow) {
-//            for(Employee emp:employees){
-            for(int i=0; i<3; i++){
-                tableModel.addRow(new Object[] {"manager", "Jon", 1234});
-                //System.out.println("emp toString: "+ emp);
-//                tableModel.addRow(new Object[] {employees.get(i).getRole(),employees.get(i).getName(),employees.get(i).getSalary()});
-            }
+           for(Employee emp:employees){
+               tableModel.addRow(new Object[] {emp.getRole(),emp.getName(),emp.getSalary()});
+           }
+            
         }
     }
 
