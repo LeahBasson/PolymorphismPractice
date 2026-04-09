@@ -23,5 +23,10 @@ public class Intern extends Employee{
     public double getSalary() {
        return empSalary; 
     }
+
+    @Override
+    public String toString() {
+        return getRole() + getName() + getSalary();
+    }
     
 }// end of class
