@@ -16,6 +16,7 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
     private JLabel lblRole;
     private JLabel lblName;
     private JLabel lblSalary;
+    private JLabel lblValidate;
 
     // textfields
     private JTextField txtName;
@@ -32,24 +33,28 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
     // panels
     private JPanel pnlForm;
     private JPanel pnlButtons;
+    private JPanel pnlValidation;
 
     // constructor
     public Prac6() {
         super("Polymorphism in Swing");
 
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(4, 1));
 
         // panels
         pnlForm = new JPanel();
         pnlButtons = new JPanel();
+        pnlValidation = new JPanel();
 
         pnlForm.setLayout(new GridLayout(3, 2));
         pnlButtons.setLayout(new FlowLayout());
+        pnlValidation.setLayout(new FlowLayout());
 
         // labels
         lblRole = new JLabel("Select Role");
         lblName = new JLabel("Enter Name");
         lblSalary = new JLabel("Enter Salary");
+        lblValidate = new JLabel("**No value added");
 
         // combo box
         cboRole = new JComboBox();
@@ -87,9 +92,14 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
         pnlButtons.add(btnShow);
 
         add(pnlButtons);
+        
+        pnlValidation.add(lblValidate);
+        add(pnlValidation);
+        
+        lblValidate.setVisible(false);
 
         setGui();
-        
+
         btnAdd.addActionListener(this);
         btnShow.addActionListener(this);
     }
@@ -120,29 +130,36 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
             // String role = (String) cbo.getSelectedItem();
             String name = txtName.getText();
             String salary = txtSalary.getText();
-            System.out.println(role + name+ salary);
+            System.out.println(role + name + salary);
+            
             // toString() - because I am using an Object and in my constructor its a String
             // so it needs to be converted back.
             if (cboRole.getSelectedItem().equals("Manager")) {
                 Manager man = new Manager(role.toString(), name, Double.parseDouble(salary));
-                System.out.println("manager: "+ man);
                 employees.add(man);
-            }
-            else if(cboRole.getSelectedItem().equals("Developer")){
+            } else if (cboRole.getSelectedItem().equals("Developer")) {
                 Developer dev = new Developer(role.toString(), name, Double.parseDouble(salary));
                 employees.add(dev);
-            }
-            else if(cboRole.getSelectedItem().equals("Intern")){
+            } else if (cboRole.getSelectedItem().equals("Intern")) {
                 Intern intern = new Intern(role.toString(), name, Double.parseDouble(salary));
                 employees.add(intern);
             }
+
+            cboRole.setSelectedItem("none selected");
+            txtName.setText("");
+            txtSalary.setText("");
+            lblValidate.setVisible(false);
         }
 
         if (e.getSource() == btnShow) {
-           for(Employee emp:employees){
-               tableModel.addRow(new Object[] {emp.getRole(),emp.getName(),emp.getSalary()});
-           }
-            
+            Boolean listTracker = employees.isEmpty();
+            if (listTracker.equals(false)) {
+                for (Employee emp : employees) {
+                    tableModel.addRow(new Object[]{emp.getRole(), emp.getName(), emp.getSalary()});
+                }
+            } else{
+                lblValidate.setVisible(true);  
+            }
         }
     }
 

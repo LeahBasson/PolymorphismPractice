@@ -24,9 +24,4 @@ public class Intern extends Employee{
        return empSalary; 
     }
     
-    @Override
-    public String toString() {
-        return getRole() + getName() + getSalary();
-    }
-    
 }// end of class
