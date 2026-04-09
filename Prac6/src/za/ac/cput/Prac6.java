@@ -158,7 +158,7 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
                     tableModel.addRow(new Object[]{emp.getRole(), emp.getName(), emp.getSalary()});
                 }
             } else{
-                lblValidate.setVisible(true);  
+                lblValidate.setVisible(true);
             }
         }
     }
