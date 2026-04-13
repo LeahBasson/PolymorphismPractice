@@ -15,8 +15,6 @@ public class Prac6 extends JFrame implements ItemListener, ActionListener {
     // array list
     ArrayList<Employee> employees = new ArrayList<Employee>();
     
-   
-
     // labels
     private JLabel lblRole;
     private JLabel lblName;
